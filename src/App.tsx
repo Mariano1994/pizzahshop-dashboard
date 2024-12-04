@@ -1,10 +1,11 @@
 import "./App.css";
+import { Button } from "./components/ui/button";
 
 function App() {
   return (
     <>
-      <div>
-        <span>Pizza Shop</span>
+      <div className="flex justify-center items-center h-screen">
+        <Button>Enviar</Button>
       </div>
     </>
   );
