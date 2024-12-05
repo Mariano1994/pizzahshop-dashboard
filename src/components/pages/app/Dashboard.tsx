@@ -1,9 +1,13 @@
+import { Helmet } from "react-helmet-async"
 
 const Dashboard = ()=> {
   return (
-    <span>
+   <>
+   <Helmet title="Dashboard"/>
+   <span>
       Dashboard
     </span>
+   </>
   )
 }
 
