@@ -4,7 +4,7 @@ import { Input } from "../../ui/input"
 import { Button } from "../../ui/button"
 import {useForm} from 'react-hook-form'
 import * as z from 'zod'
-
+import { toast } from "sonner"
 
 
 const FormSignIn = z.object({
@@ -19,8 +19,20 @@ const SignIn = () => {
 const {handleSubmit, register, formState:{isSubmitting}} = useForm<SignInForm>()
 
 async function handleSigin (data: SignInForm) {
-  await new Promise(resolve => setTimeout(resolve, 2000))
-  console.log(data)
+
+  try {
+    await new Promise(resolve => setTimeout(resolve, 2000))
+    console.log(data)
+    toast.success('Enviamos um link de autenticacao para o seu e-mail.', {
+      action: {
+        label: 'Reenviar',
+        onClick: ()=> {handleSigin(data)}
+      }
+    })
+  } catch (error) {
+    toast.error('Credencias invalidas')
+  }
+ 
 }
 
   return (
