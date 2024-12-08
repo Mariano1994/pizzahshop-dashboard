@@ -5,6 +5,7 @@ import { Button } from "../../ui/button"
 import {useForm} from 'react-hook-form'
 import * as z from 'zod'
 import { toast } from "sonner"
+import { Link } from "react-router"
 
 
 const FormSignIn = z.object({
@@ -39,6 +40,11 @@ async function handleSigin (data: SignInForm) {
  <>
   <Helmet title="Login"/>
  <div className="p-8">
+    <Button variant="outline" asChild className=" absolute top-8 right-8 ">
+      <Link to='/sign-up'>
+      Novo estabelecimento
+      </Link>
+    </Button>
     <div className="w-[350px] flex flex-col justify-center gap-6">
       <div className="flex flex-col gap-2 text-center">
         <h1 className="text-2xl font-semibold tracking-tight">Acessar painel</h1>
@@ -51,6 +57,8 @@ async function handleSigin (data: SignInForm) {
     <Input id="email" type="email" {...register('email')}/>
   </div>
   <Button disabled={isSubmitting} type="submit" className="w-full disabled:cursor-not-allowed">Acessar painel</Button>
+
+
 </form>
     </div>
  </div>
