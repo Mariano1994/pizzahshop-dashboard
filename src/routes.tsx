@@ -4,6 +4,7 @@ import SignIn from "./pages/auth/Sign-in";
 import AppLayout from "./pages/_layout/app";
 import AuthLayout from "./pages/_layout/auth";
 import SignUp from "./pages/auth/Sign-up";
+import Orders from "./pages/app/orders/Orders";
 
 export const routes = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ export const routes = createBrowserRouter([
   children: [{
     path:'/',
     element: <Dashboard/>
+  },
+  {
+    path:'/orders',
+    element: <Orders/>
   }]
 },
 {
