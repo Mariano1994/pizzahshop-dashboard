@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async"
-import { Label } from "../../ui/label"
-import { Input } from "../../ui/input"
-import { Button } from "../../ui/button"
+import { Label } from "../../components/ui/label"
+import { Input } from "../../components/ui/input"
+import { Button } from "../../components/ui/button"
 import {useForm} from 'react-hook-form'
 import * as z from 'zod'
 import { toast } from "sonner"
