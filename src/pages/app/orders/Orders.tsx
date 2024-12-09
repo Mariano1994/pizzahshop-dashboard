@@ -1,8 +1,7 @@
 import { Helmet } from "react-helmet-async"
-import { Input } from "../../../components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../components/ui/table"
-import { Button } from "../../../components/ui/button"
-import { ArrowRight, Search, X } from "lucide-react"
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "../../../components/ui/table"
+import OrderTableRow from "./OrderTableRow"
+import OrderTableFilters from "./OrderTableFilters"
 
 const Orders = () => {
   return (
@@ -12,11 +11,7 @@ const Orders = () => {
        <h1 className="text-3xl font-bold tracking-tight">Pedidos</h1>
     </div>
     <div className=" space-y-2.5 mt-4">
-        <form className="flex items-center gap-2">
-          <span  className="text-sm font-semibold">Filtros:</span>
-          <Input className="h-8 w-[320px]" placeholder="Nome do Cliente"/>
-        </form>
-
+      <OrderTableFilters/>
         <div className="border rounded-md">
           <Table>
             <TableHeader>
@@ -34,36 +29,7 @@ const Orders = () => {
             <TableBody>
              {Array.from({length: 5}).map((_, i)=> {
               return (
-                <TableRow key={i}>
-                <TableCell>
-                  <Button variant='outline' size="xs">
-                    <Search className="h-3 w-3"/>
-                    <span className="sr-only">Detalhes do pedido</span>
-                  </Button>
-                </TableCell>
-                <TableCell className="font-mono text-xs font-medium"> 8498t5knvdk</TableCell>
-                <TableCell className="text-muted-foreground"> há 15 minutos</TableCell>
-                <TableCell className="font-mono"> 
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-slate-400"/>
-                    <span className="font-medium text-muted-foreground">Pendente</span>
-                  </div>
-                </TableCell>
-                <TableCell className="font-medium"> Mariano Artur Molar Capiliku</TableCell>
-                <TableCell className="font-medium"> 1.589 kz</TableCell>
-                <TableCell className="font-mono">
-                <Button variant='outline' size='xs'>
-                    <ArrowRight className="h-3 w-3 mr-1"/>
-                    Aprovar
-                  </Button>
-                </TableCell>
-                <TableCell className="font-mono">
-                  <Button variant='ghost' size='xs'>
-                    <X className="h-3 w-3 mr-1"/>
-                    Cancelar
-                  </Button>
-                </TableCell>
-              </TableRow>
+                <OrderTableRow key={i}/>
               )
              })}
             </TableBody>
