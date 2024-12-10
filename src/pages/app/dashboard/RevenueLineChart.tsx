@@ -32,14 +32,12 @@ const RevenueLineChart = () => {
         right: 12,
       }}
    >
-    <CartesianGrid vertical={false} />
+    <CartesianGrid vertical={false}/>
       <XAxis
         dataKey="date"
         tickLine={false}
         axisLine={false}
         tickMargin={8}
- 
-      // tickFormatter={(value) => value.slice(0, 3)}
     />
     <YAxis dataKey="revenue"  
       tickLine={false}
