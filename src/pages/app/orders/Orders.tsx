@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async"
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "../../../components/ui/table"
 import OrderTableRow from "./OrderTableRow"
 import OrderTableFilters from "./OrderTableFilters"
+import Pagination from "../../../components/Pagination"
 
 const Orders = () => {
   return (
@@ -9,8 +10,7 @@ const Orders = () => {
     <Helmet title="Pedidos"/>
     <div className=" flex flex-col gap-4">
        <h1 className="text-3xl font-bold tracking-tight">Pedidos</h1>
-    </div>
-    <div className=" space-y-2.5 mt-4">
+       <div className=" space-y-2.5">
       <OrderTableFilters/>
         <div className="border rounded-md">
           <Table>
@@ -27,7 +27,7 @@ const Orders = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-             {Array.from({length: 5}).map((_, i)=> {
+             {Array.from({length: 10}).map((_, i)=> {
               return (
                 <OrderTableRow key={i}/>
               )
@@ -35,8 +35,9 @@ const Orders = () => {
             </TableBody>
           </Table>
         </div>
+        <Pagination pageIndex={0} totalCount={105} perPage={10}/>
     </div>
-   
+    </div>
    </>
   )
 }
