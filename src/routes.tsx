@@ -6,11 +6,13 @@ import AuthLayout from "./pages/_layout/auth";
 import SignUp from "./pages/auth/Sign-up";
 import Orders from "./pages/app/orders/Orders";
 import Dashboard from "./pages/app/dashboard/Dashboard";
+import ErrorPage from "./pages/ErrorPage";
 
 export const routes = createBrowserRouter([
   {
   path: '/',
   element: <AppLayout/>,
+  errorElement: <ErrorPage/>,
   children: [{
     path:'/',
     element: <Dashboard/>
