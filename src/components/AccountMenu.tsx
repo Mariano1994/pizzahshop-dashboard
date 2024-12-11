@@ -5,6 +5,10 @@ import { useQuery } from "@tanstack/react-query"
 import { getUserProfile } from "../api/getUserProfile"
 import { getManagedRestaurant } from "../api/getManagedRestaurant"
 import { Skeleton } from "./ui/skeleton"
+import { Dialog } from "./ui/dialog"
+import { DialogTrigger } from "@radix-ui/react-dialog"
+import StoregeProfileModal from "./StoregeProfileModal"
+
 
 
 const AccountMenu = () => {
@@ -23,6 +27,8 @@ const AccountMenu = () => {
   )
 
   return (
+  <Dialog>
+
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
      
@@ -40,7 +46,7 @@ const AccountMenu = () => {
             <Skeleton className="h-4 w-32"/>
             <Skeleton className="h-3 w-24"/>
            </div>) : (
-            <>
+             <>
               <span>{profile?.name}</span>
               <span className="text-xs font-normal text-muted-foreground ">{profile?.email}</span>
            </>)
@@ -48,10 +54,12 @@ const AccountMenu = () => {
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator/>
-        <DropdownMenuItem >
+        <DialogTrigger asChild>
+          <DropdownMenuItem >
           <Building className="w-4 h-4 mr-1"/>
             <span>Perfil da loja</span>
-        </DropdownMenuItem>
+          </DropdownMenuItem>
+        </DialogTrigger>
 
         <DropdownMenuItem className="text-rose-500 dark:text-rose-400">
           <LogOut className="w-4 h-4 mr-1"/>
@@ -60,6 +68,9 @@ const AccountMenu = () => {
 
       </DropdownMenuContent>
     </DropdownMenu>
+
+    <StoregeProfileModal/>
+  </Dialog>
   )
 }
 
