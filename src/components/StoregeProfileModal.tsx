@@ -4,17 +4,21 @@ import { Button } from "./ui/button"
 import { Label } from "./ui/label"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { getManagedRestaurant } from "../api/getManagedRestaurant"
 import { useForm } from "react-hook-form"
 import z from 'zod'
 import { Loader } from "lucide-react"
+import { toast } from "sonner"
+import { updateProfile } from "../api/updateProfile"
 
 
-const UploadStoreInfoSchema = z.object({
+const UpdateStoreInfoSchema = z.object({
   name: z.string(),
   description: z.string()
 })
+
+type UpdateStoreInfoProps = z.infer<typeof UpdateStoreInfoSchema>
 
 
 const StoregeProfileModal = () => {
@@ -25,9 +29,10 @@ const StoregeProfileModal = () => {
     }
   )
 
-type UploadStoreInfoProps = z.infer<typeof UploadStoreInfoSchema>
-
-  const {handleSubmit, register, formState:{isSubmitting}} = useForm<UploadStoreInfoProps>({
+  const {mutateAsync: updateRestaurantProfile} = useMutation({
+    mutationFn: updateProfile,
+  })
+  const {handleSubmit, register, formState:{isSubmitting}} = useForm<UpdateStoreInfoProps>({
       values: {
       name: restaurantInfo?.name as string,
       description: restaurantInfo?.description as string
@@ -35,11 +40,19 @@ type UploadStoreInfoProps = z.infer<typeof UploadStoreInfoSchema>
   })
 
 
+  async function uploadStoreInfo(data: UpdateStoreInfoProps) {
 
-
-  async function uploadStoreInfo(data: UploadStoreInfoProps) {
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    console.log(data)
+    try {
+      await updateRestaurantProfile({
+        name: data.name,
+        description: data.description
+      })
+      toast.success('Perfil atualizado com sucesso')
+    } catch (error) {
+      console.log(error)
+      toast.error('Não foi possível atualizar as informações')
+    }
+  
   }
 
   return (
