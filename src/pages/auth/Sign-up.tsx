@@ -19,8 +19,6 @@ const FormSignUp = z.object({
 
 type SignInForm = z.infer<typeof FormSignUp>
 
-
-
 const SignUp = () => {
 const {handleSubmit, register, formState:{isSubmitting}} = useForm<SignInForm>()
 
@@ -50,8 +48,7 @@ async function handleSigUp (data: SignInForm) {
   }
  
 }
-
-  return (
+return (
  <>
   <Helmet title="Cadastro"/>
  <div className="p-8">
@@ -95,4 +92,5 @@ async function handleSigUp (data: SignInForm) {
  </>
   )
 }
+
 export default SignUp
