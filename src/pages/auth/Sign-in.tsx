@@ -6,6 +6,8 @@ import { Button } from "../../components/ui/button"
 import {useForm} from 'react-hook-form'
 import { toast } from "sonner"
 import { Link } from "react-router"
+import { useMutation } from '@tanstack/react-query'
+import { signIn } from '../../api/Sign-In'
 
 
 const FormSignIn = z.object({
@@ -18,11 +20,14 @@ type SignInForm = z.infer<typeof FormSignIn>
 const SignIn = () => {
 const {handleSubmit, register, formState:{isSubmitting}} = useForm<SignInForm>()
 
-async function handleSigin (data: SignInForm) {
+const {mutateAsync: authenticate} = useMutation({
+  mutationFn: signIn
+})
 
+async function handleSigin (data: SignInForm) {
   try {
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    console.log(data)
+    await authenticate({email: data.email})
+    
     toast.success('Enviamos um link de autenticacao para o seu e-mail.', {
       action: {
         label: 'Reenviar',
