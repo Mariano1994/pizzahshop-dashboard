@@ -6,6 +6,8 @@ import {useForm} from 'react-hook-form'
 import * as z from 'zod'
 import { toast } from "sonner"
 import { Link, useNavigate } from "react-router"
+import { useMutation } from "@tanstack/react-query"
+import { registerRestaurant } from "../../api/registerRestaurant"
 
 
 const FormSignUp = z.object({
@@ -23,14 +25,24 @@ const SignUp = () => {
 const {handleSubmit, register, formState:{isSubmitting}} = useForm<SignInForm>()
 
 const navigate = useNavigate()
+
+ const {mutateAsync: restigerRestaurantFn} = useMutation({
+  mutationFn: registerRestaurant
+ })
+
 async function handleSigUp (data: SignInForm) {
   try {
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    console.log(data)
+    await restigerRestaurantFn({
+      restaurantName: data.restaurantName,
+      managerName: data.managerName,
+      email: data.email,
+      phone: data.phone
+    })
+    
     toast.success("Restaurante criado com sucesso", {
       action: {
         label: 'Login',
-        onClick: ()=> {navigate('/sign-in')}
+        onClick: ()=> {navigate(`/sign-in?email=${data.email}`)}
       }
     })
   } catch (error) {
