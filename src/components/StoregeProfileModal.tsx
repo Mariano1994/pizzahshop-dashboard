@@ -1,5 +1,5 @@
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog"
-import { DialogContent, DialogFooter, DialogHeader } from "./ui/dialog"
+import { DialogClose, DialogContent, DialogFooter, DialogHeader } from "./ui/dialog"
 import { Button } from "./ui/button"
 import { Label } from "./ui/label"
 import { Input } from "./ui/input"
@@ -11,6 +11,7 @@ import z from 'zod'
 import { Loader } from "lucide-react"
 import { toast } from "sonner"
 import { updateProfile } from "../api/updateProfile"
+import { queryClient } from "../lib/react-query"
 
 
 const UpdateStoreInfoSchema = z.object({
@@ -25,14 +26,27 @@ const StoregeProfileModal = () => {
   const {data: restaurantInfo} = useQuery(
     {
       queryKey: ['restaurant'],
-      queryFn: getManagedRestaurant
+      queryFn: getManagedRestaurant,
+      staleTime: Infinity
     }
   )
 
   const {mutateAsync: updateRestaurantProfile} = useMutation({
     mutationFn: updateProfile,
+    //This function is used to reflet all the updated values in real time on ui
+    onSuccess(_, {name, description}) {
+      const cached = queryClient.getQueryData(['restaurant'])
+      
+      if(cached) {
+        queryClient.setQueryData(['restaurant'], {
+          ...cached,
+          name,
+          description
+        })
+      }
+    } 
   })
-  const {handleSubmit, register, formState:{isSubmitting}} = useForm<UpdateStoreInfoProps>({
+  const {handleSubmit, register, reset, formState:{isSubmitting}} = useForm<UpdateStoreInfoProps>({
       values: {
       name: restaurantInfo?.name as string,
       description: restaurantInfo?.description as string
@@ -47,6 +61,7 @@ const StoregeProfileModal = () => {
         name: data.name,
         description: data.description
       })
+      reset()
       toast.success('Perfil atualizado com sucesso')
     } catch (error) {
       console.log(error)
@@ -81,9 +96,11 @@ const StoregeProfileModal = () => {
 
     </div>
     <DialogFooter>
-      <Button variant='ghost' type="button">
-        Cancelar
-      </Button>
+      <DialogClose asChild>
+        <Button variant='ghost' type="button">
+          Cancelar
+        </Button>
+      </DialogClose>
       <Button variant='success' type="submit" disabled={isSubmitting}>
         {isSubmitting? <Loader className=" animate-spin"/> : "Atualizar"}
       </Button>

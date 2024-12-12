@@ -1,17 +1,20 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { Button } from "./ui/button"
 import { Building, ChevronDown, LogOut } from "lucide-react"
-import { useQuery } from "@tanstack/react-query"
+import {useMutation, useQuery } from "@tanstack/react-query"
 import { getUserProfile } from "../api/getUserProfile"
 import { getManagedRestaurant } from "../api/getManagedRestaurant"
 import { Skeleton } from "./ui/skeleton"
 import { Dialog } from "./ui/dialog"
 import { DialogTrigger } from "@radix-ui/react-dialog"
 import StoregeProfileModal from "./StoregeProfileModal"
+import { SignOut } from "../api/Sign-out"
+import { useNavigate } from "react-router"
 
 
 
 const AccountMenu = () => {
+  const navigate = useNavigate()
 
   const {data: profile, isLoading: isuserProfileLoading} = useQuery({
     queryKey:['profile'],
@@ -22,9 +25,17 @@ const AccountMenu = () => {
   const {data: restaurantInfo, isLoading: isRestaurantLoading} = useQuery(
     {
       queryKey: ['restaurant'],
-      queryFn: getManagedRestaurant
+      queryFn: getManagedRestaurant,
+      staleTime: Infinity
     }
   )
+
+  const {mutateAsync: signOut, isPending: isSiginOut} = useMutation({
+      mutationFn: SignOut,
+      onSuccess: ()=> {
+       navigate('/sign-in', {replace: true})
+      }
+  })
 
   return (
   <Dialog>
@@ -61,9 +72,11 @@ const AccountMenu = () => {
           </DropdownMenuItem>
         </DialogTrigger>
 
-        <DropdownMenuItem className="text-rose-500 dark:text-rose-400">
-          <LogOut className="w-4 h-4 mr-1"/>
+        <DropdownMenuItem asChild className="text-rose-500 dark:text-rose-400">
+          <button className="w-full" onClick={()=> signOut()}disabled={isSiginOut}>
+            <LogOut className="w-4 h-4 mr-1"/>
             <span>Sair</span>
+          </button>
         </DropdownMenuItem>
 
       </DropdownMenuContent>
