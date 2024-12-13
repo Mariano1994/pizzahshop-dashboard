@@ -15,15 +15,21 @@ import { z } from "zod"
 const Orders = () => {
   const [seachParams, setSearchParams] = useSearchParams()
 
+  const orderId = seachParams.get('orderId')
+  const customerName= seachParams.get('customerName')
+  const status = seachParams.get('status')
+
+
   const pageIndex = z.coerce
     .number()
     .transform((page) => page - 1)
     .parse(seachParams.get('page')?? 1)
 
 
+
   const {data: result} = useQuery({
-    queryKey:['result', pageIndex],
-    queryFn: ()=> getOrders({pageIndex}),
+    queryKey:['result', pageIndex, orderId, status, customerName],
+    queryFn: ()=> getOrders({pageIndex, customerName, orderId, status: status === 'all'? null :status}),
   })
 
   const handlePaginate = (pageIndex: number) => {
