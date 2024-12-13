@@ -2,8 +2,11 @@ import { ArrowRight,Search, X } from "lucide-react"
 import { Button } from "../../../components/ui/button"
 import { TableCell, TableRow } from "../../../components/ui/table"
 import { Dialog, DialogTrigger } from "../../../components/ui/dialog"
+import {formatDistanceToNow} from 'date-fns'
+import {pt} from 'date-fns/locale'
 import OrderDetails from "./OrderDetails"
 import OrderStatus from "./OrdersStatus"
+
 
 interface OrderProps {
   order: {
@@ -31,7 +34,10 @@ const OrderTableRow = ({order}: OrderProps) => {
       </Dialog>
     </TableCell>
     <TableCell className="font-mono text-xs font-medium"> {order.orderId}</TableCell>
-    <TableCell className="text-muted-foreground"> há 15 minutos</TableCell>
+    <TableCell className="text-muted-foreground">{formatDistanceToNow(order.createdAt, {
+      locale: pt,
+      addSuffix: true
+    })}</TableCell>
     <TableCell> 
      <OrderStatus status={order.status}/>
     </TableCell>
