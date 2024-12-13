@@ -3,8 +3,19 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from "../../../com
 import OrderTableRow from "./OrderTableRow"
 import OrderTableFilters from "./OrderTableFilters"
 import Pagination from "../../../components/Pagination"
+import { useQuery } from "@tanstack/react-query"
+import { getOrders } from "../../../api/getOrder"
 
 const Orders = () => {
+
+  const {data: result} = useQuery({
+    queryKey:['result'],
+    queryFn: getOrders,
+  })
+
+  
+
+
   return (
    <>
     <Helmet title="Pedidos"/>
@@ -27,11 +38,7 @@ const Orders = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-             {Array.from({length: 10}).map((_, i)=> {
-              return (
-                <OrderTableRow key={i}/>
-              )
-             })}
+             {result && result.orders.map( order =>   <OrderTableRow key={order.orderId} order={order}/>)}
             </TableBody>
           </Table>
         </div>

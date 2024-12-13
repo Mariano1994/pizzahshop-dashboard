@@ -1,10 +1,22 @@
-import { ArrowRight, Search, X } from "lucide-react"
+import { ArrowRight,Search, X } from "lucide-react"
 import { Button } from "../../../components/ui/button"
 import { TableCell, TableRow } from "../../../components/ui/table"
 import { Dialog, DialogTrigger } from "../../../components/ui/dialog"
 import OrderDetails from "./OrderDetails"
+import OrderStatus from "./OrdersStatus"
 
-const OrderTableRow = () => {
+interface OrderProps {
+  order: {
+    orderId: string;
+    createdAt: Date,
+    status: "pending" | "canceled" | "processing" | "delivering" | "delivered";
+    customerName: string;
+    total: number;
+  }   
+}
+
+const OrderTableRow = ({order}: OrderProps) => {
+
   return (
     <TableRow>
     <TableCell>
@@ -18,16 +30,16 @@ const OrderTableRow = () => {
         <OrderDetails/>
       </Dialog>
     </TableCell>
-    <TableCell className="font-mono text-xs font-medium"> 8498t5knvdk</TableCell>
+    <TableCell className="font-mono text-xs font-medium"> {order.orderId}</TableCell>
     <TableCell className="text-muted-foreground"> há 15 minutos</TableCell>
     <TableCell> 
-      <div className="flex items-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-slate-400"/>
-        <span className="font-medium text-muted-foreground">Pendente</span>
-      </div>
+     <OrderStatus status={order.status}/>
     </TableCell>
-    <TableCell className="font-medium"> Mariano Artur Molar Capiliku</TableCell>
-    <TableCell className="font-medium"> 1.589 kz</TableCell>
+    <TableCell className="font-medium"> {order.customerName}</TableCell>
+    <TableCell className="font-medium"> {order.total.toLocaleString('pt-pt', {
+      style: "currency",
+      currency: 'AOA'
+    })}</TableCell>
     <TableCell className="font-mono">
     <Button variant='outline' size='xs'>
         <ArrowRight className="h-3 w-3 mr-1"/>
@@ -43,5 +55,4 @@ const OrderTableRow = () => {
   </TableRow>
   )
 }
-
 export default OrderTableRow
