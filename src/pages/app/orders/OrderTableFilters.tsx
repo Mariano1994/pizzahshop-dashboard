@@ -58,6 +58,7 @@ const OrderTableFilters = () => {
       state.set('page','1')
 
       return state
+
     }
       
     )
