@@ -12,6 +12,7 @@ import { cancelOder } from "../../../api/cancelOrder"
 import { queryClient } from "../../../lib/react-query"
 import { GetOrdersResponse } from "../../../api/getOrder"
 import { approveOrder } from "../../../api/approveOrder"
+import { dispatchOrder } from "../../../api/dispatchOrder"
 
 
 type statusType = "pending" | "canceled" | "processing" | "delivering" | "delivered";
@@ -57,8 +58,15 @@ const OrderTableRow = ({order}: OrderProps) => {
 
   const {mutateAsync:approveOrderFn, isPending: isApproving} = useMutation({
     mutationFn: approveOrder,
-    onSuccess(_, {orderId}) {
+    async onSuccess(_, {orderId}) {
       updateOrderStatusOnCache(orderId, 'processing')
+    }
+  })
+
+  const {mutateAsync: dispatchOrderFn, isPending: isDelivering  } = useMutation({
+    mutationFn: dispatchOrder,
+    async onSuccess(_, {orderId}) {
+      updateOrderStatusOnCache(orderId, 'delivering')
     }
   })
 
@@ -93,7 +101,9 @@ const OrderTableRow = ({order}: OrderProps) => {
         order.status === 'pending' && (
           <Button 
             variant='outline' size='xs' 
-            onClick={()=>approveOrderFn({orderId: order.orderId})}>
+            onClick={()=>approveOrderFn({orderId: order.orderId})}
+            disabled={isApproving}
+          >
               <ArrowRight className="h-3 w-3 mr-1"/>
               Aprovar
           </Button>
@@ -102,9 +112,13 @@ const OrderTableRow = ({order}: OrderProps) => {
 
       {
         order.status === "processing" && (
-          <Button variant='outline' size='xs'>
+          <Button 
+            variant='outline' size='xs' 
+            onClick={()=> dispatchOrderFn({orderId: order.orderId})}
+            disabled={isDelivering}
+          >
               <ArrowRight className="h-3 w-3 mr-1"/>
-              Entregar
+               Entregar
           </Button>
         )
       }
