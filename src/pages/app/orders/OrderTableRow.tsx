@@ -13,6 +13,7 @@ import { queryClient } from "../../../lib/react-query"
 import { GetOrdersResponse } from "../../../api/getOrder"
 import { approveOrder } from "../../../api/approveOrder"
 import { dispatchOrder } from "../../../api/dispatchOrder"
+import { deliverOrder } from "../../../api/deliverOrder"
 
 
 type statusType = "pending" | "canceled" | "processing" | "delivering" | "delivered";
@@ -67,6 +68,13 @@ const OrderTableRow = ({order}: OrderProps) => {
     mutationFn: dispatchOrder,
     async onSuccess(_, {orderId}) {
       updateOrderStatusOnCache(orderId, 'delivering')
+    }
+  })
+
+  const {mutateAsync: deliverOrderFn, isPending: isDelivered} = useMutation({
+    mutationFn: deliverOrder,
+    async onSuccess(_, {orderId}){
+      updateOrderStatusOnCache(orderId, 'delivered')
     }
   })
 
@@ -125,8 +133,11 @@ const OrderTableRow = ({order}: OrderProps) => {
 
       {
         order.status === 'delivering' && (
-          <Button variant='outline' size='xs'>
-              <ArrowRight className="h-3 w-3 mr-1"/>
+          <Button 
+            onClick={()=> deliverOrderFn({orderId: order.orderId})}
+            disabled={isDelivered}
+            variant='outline' size='xs'>
+                <ArrowRight className="h-3 w-3 mr-1"/>
               Entregue
           </Button>
         )
