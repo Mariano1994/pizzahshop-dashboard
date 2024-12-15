@@ -2,10 +2,10 @@ import { DialogTitle } from "@radix-ui/react-dialog"
 import { DialogContent, DialogDescription, DialogHeader } from "../../../components/ui/dialog"
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "../../../components/ui/table"
 import { useQuery } from "@tanstack/react-query"
-import { getOrderDetails } from "../../../api/gerOrderDetails"
 import OrderStatus from "./OrdersStatus"
 import { formatDistanceToNow } from "date-fns"
 import {pt} from 'date-fns/locale'
+import { getOrderDetails } from "../../../api/getOrderDetails"
 
 interface OrderDetailsProps {
   orderId : string
