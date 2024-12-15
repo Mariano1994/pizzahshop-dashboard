@@ -25,10 +25,10 @@ const MonthOrdersAmountCard = () => {
                 MonthOrdersAmount.diffFromLastMonth >= 0 ? 
                 <p className=" text-xs text-muted-foreground ">
                 <span className="text-emerald-500 dark:text-emerald-400">+{MonthOrdersAmount.diffFromLastMonth}%</span> em relação ao mês passado
-              </p> : 
+                </p> : 
                 <p className=" text-xs text-muted-foreground ">
                 <span className="text-rose-500 dark:text-rose-400">{MonthOrdersAmount.diffFromLastMonth}%</span> em relação ao mês passado
-              </p>
+                </p>
               }
               </>
 
