@@ -28,6 +28,7 @@ const RevenueLineChart = ({dateRange}: RevenueChartProps) => {
     })
   })  
 
+  // Formmatting the daily revenue data
   const formmatedDailyRevenuePeriod = useMemo(()=>{
     return DailyRevenueInPeriod?.map(item => {
       return {
