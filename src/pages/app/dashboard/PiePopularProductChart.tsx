@@ -10,16 +10,10 @@ import {
   ChartTooltipContent,
 } from  "../../../components/ui/chart"
 import { useMemo } from "react"
-// import { useQuery } from "@tanstack/react-query"
-// import { GetPopularProducts } from "../../../api/getPopularProduts"
+import { useQuery } from "@tanstack/react-query"
+import { GetPopularProducts } from "../../../api/getPopularProduts"
 
-const chartData = [
-  { product: "Pepperoni", amount: 30, fill: "var(--color-chrome)" },
-  { product: "Mussarela", amount: 50, fill: "var(--color-safari)" },
-  { product: "Maguerita", amount: 80, fill: "var(--color-firefox)" },
-  { product: "4 Estacoes", amount: 30, fill: "var(--color-edge)" },
-  { product: "other", amount: 90, fill: "var(--color-other)" },
-]
+
 const chartConfig = {
   visitors: {
     label: "Popular Products",
@@ -46,20 +40,32 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
+const COLORS = ['hsl(var(--chart-1))',"hsl(var(--chart-2))", "hsl(var(--chart-3))", "hsl(var(--chart-4))", "hsl(var(--chart-5))"]
+
 
 
 export function PiePopularProductChart() {
 
-  // const {data: PopularProducts} =useQuery({
-  //   queryKey:  ['metrics', 'popular-produts'],
-  //   queryFn: GetPopularProducts
-  // })
+  const {data: PopularProducts} =useQuery({
+    queryKey:  ['metrics', 'popular-produts' ],
+    queryFn: GetPopularProducts
+  })
 
-  const totalVisitors = useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.amount, 0)
-  }, [])
+  
+  const PopularProductData = useMemo(()=> {
+    return PopularProducts?.map((product, index)=> {
+      return { 
+        product: product.product,
+        amount: product.amount,
+        fill: COLORS[index]
+      }
+    })
 
+  }, [PopularProducts])
 
+  const TotalUnitSold = useMemo(() => {
+    return PopularProductData?.reduce((acc, curr) => acc + curr.amount, 0)
+  }, [PopularProductData])
 
 
   return (
@@ -76,7 +82,7 @@ export function PiePopularProductChart() {
               content={<ChartTooltipContent hideLabel />}
               />
             <Pie
-              data={chartData}
+              data={PopularProductData}
               dataKey="amount"
               nameKey="product"
               innerRadius={60}
@@ -98,7 +104,7 @@ export function PiePopularProductChart() {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                           >
-                          {totalVisitors.toLocaleString()}
+                          {TotalUnitSold?.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
