@@ -3,6 +3,7 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "
 import { useQuery } from "@tanstack/react-query"
 import { getDailyRevenueInPeriod } from "../../../api/getDailyRevenueInPeriod"
 import { DateRange } from "react-day-picker"
+import { useMemo } from "react"
 
 
 const chartConfig = {
@@ -27,13 +28,21 @@ const RevenueLineChart = ({dateRange}: RevenueChartProps) => {
     })
   })  
 
-  console.log(DailyRevenueInPeriod)
+  const formmatedDailyRevenuePeriod = useMemo(()=>{
+    return DailyRevenueInPeriod?.map(item => {
+      return {
+        date: item.date,
+        receipt: item.receipt / 100
+      }
+    })
+
+  }, [DailyRevenueInPeriod])
 
   return (
   <ChartContainer config={chartConfig} className="h-48 w-full">
     <LineChart
         accessibilityLayer
-        data={DailyRevenueInPeriod}
+        data={formmatedDailyRevenuePeriod}
         margin= {{
         left: 0,
         right: 12,
