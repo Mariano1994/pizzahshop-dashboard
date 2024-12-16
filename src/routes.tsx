@@ -7,6 +7,7 @@ import SignUp from "./pages/auth/Sign-up";
 import Orders from "./pages/app/orders/Orders";
 import Dashboard from "./pages/app/dashboard/Dashboard";
 import ErrorPage from "./pages/ErrorPage";
+import PageNotFound from "./pages/PageNotFound";
 
 export const routes = createBrowserRouter([
   {
@@ -35,5 +36,9 @@ export const routes = createBrowserRouter([
       element: <SignUp/>
     }
   ]
+},
+{
+  path: '*',
+  element: <PageNotFound/>
 }
 ])
