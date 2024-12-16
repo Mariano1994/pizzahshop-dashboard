@@ -1,8 +1,7 @@
-import { TrendingUp } from "lucide-react"
-import { Label, Pie, PieChart } from "recharts"
+
+import {Label, Pie, PieChart } from "recharts"
 import {
   CardContent,
-  CardFooter,
 } from "../../../components/ui/card"
 import {
   ChartConfig,
@@ -11,6 +10,9 @@ import {
   ChartTooltipContent,
 } from  "../../../components/ui/chart"
 import { useMemo } from "react"
+// import { useQuery } from "@tanstack/react-query"
+// import { GetPopularProducts } from "../../../api/getPopularProduts"
+
 const chartData = [
   { product: "Pepperoni", amount: 30, fill: "var(--color-chrome)" },
   { product: "Mussarela", amount: 50, fill: "var(--color-safari)" },
@@ -20,7 +22,7 @@ const chartData = [
 ]
 const chartConfig = {
   visitors: {
-    label: "Visitors",
+    label: "Popular Products",
   },
   chrome: {
     label: "Chrome",
@@ -45,11 +47,23 @@ const chartConfig = {
 } satisfies ChartConfig
 
 
+
 export function PiePopularProductChart() {
+
+  // const {data: PopularProducts} =useQuery({
+  //   queryKey:  ['metrics', 'popular-produts'],
+  //   queryFn: GetPopularProducts
+  // })
+
   const totalVisitors = useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.amount, 0)
   }, [])
+
+
+
+
   return (
+
     <>
      <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -68,6 +82,7 @@ export function PiePopularProductChart() {
               innerRadius={60}
               strokeWidth={5}
               >
+                
               <Label
                 content={({ viewBox }) => {
                   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
@@ -101,14 +116,7 @@ export function PiePopularProductChart() {
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
+      
       </> 
   )
   

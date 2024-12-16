@@ -1,16 +1,8 @@
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "../../../components/ui/chart"
-
-
-const chartData = [
-  { date: "10/12", revenue: 18689 },
-  { date: "11/12", revenue: 30879 },
-  { date: "12/12", revenue: 23778 },
-  { date: "13/12", revenue: 7369 },
-  { date: "14/12", revenue: 7993 },
-  { date: "15/12", revenue: 20789 },
-  { date: "16/12", revenue: 21764 },
-]
+import { useQuery } from "@tanstack/react-query"
+import { getDailyRevenueInPeriod } from "../../../api/getDailyRevenueInPeriod"
+import { DateRange } from "react-day-picker"
 
 
 const chartConfig = {
@@ -20,45 +12,60 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
+interface RevenueChartProps {
+  dateRange: DateRange | undefined,
+  onDateChange:(date: DateRange | undefined) => void
+}
 
-const RevenueLineChart = () => {
+
+const RevenueLineChart = ({dateRange}: RevenueChartProps) => {
+  const {data: DailyRevenueInPeriod} = useQuery({
+    queryKey: ['metrics', 'daily-revenue-in-period', dateRange],
+    queryFn:()=>  getDailyRevenueInPeriod({
+      from: dateRange?.from,
+      to: dateRange?.to
+    })
+  })  
+
+  console.log(DailyRevenueInPeriod)
+
   return (
-    <ChartContainer config={chartConfig} className="h-48 w-full">
-      <LineChart
+  <ChartContainer config={chartConfig} className="h-48 w-full">
+    <LineChart
         accessibilityLayer
-        data={chartData}
+        data={DailyRevenueInPeriod}
         margin= {{
         left: 0,
         right: 12,
       }}
-   >
-    <CartesianGrid vertical={false}/>
-      <XAxis
-        dataKey="date"
-        tickLine={false}
-        axisLine={false}
-        tickMargin={8}
-    />
-    <YAxis dataKey="revenue"  
-      tickLine={false}
-      axisLine={false}
-      tickMargin={8}
-      width={100}
-      tickFormatter={(value: number) => value.toLocaleString('en', {style: 'currency', currency: 'aoa'})}
-      />
+      >
+      <CartesianGrid vertical={false}/>
+        <XAxis
+          dataKey="date"
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+        />
+        <YAxis dataKey="receipt"  
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+          width={100}
+          tickFormatter={(value: number) => value.toLocaleString('en', {style: 'currency', currency: 'aoa'})}
+        />
       
-    <ChartTooltip
-      cursor={false}
-      content={<ChartTooltipContent hideLabel />}
-    />
-    <Line
-      dataKey="revenue"
-      type="linear"
-      stroke="var(--color-revenue)"
-      strokeWidth={2}
-      dot={false}
-    />
-  </LineChart>
+        <ChartTooltip
+          cursor={false}
+          content={<ChartTooltipContent hideLabel />}
+        />
+        <Line
+          dataKey="receipt"
+          type="linear"
+          stroke="var(--color-revenue)"
+          strokeWidth={2}
+          dot={false}
+        />
+    </LineChart>
   </ChartContainer>
   )
 }
