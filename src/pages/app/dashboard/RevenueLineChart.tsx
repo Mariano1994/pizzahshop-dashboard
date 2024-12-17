@@ -2,8 +2,9 @@ import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "../../../components/ui/chart"
 import { useQuery } from "@tanstack/react-query"
 import { getDailyRevenueInPeriod } from "../../../api/getDailyRevenueInPeriod"
-import { DateRange } from "react-day-picker"
+
 import { useMemo } from "react"
+import { DateRange } from "react-day-picker"
 
 
 const chartConfig = {
