@@ -2,7 +2,7 @@ import { Ban } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card"
 import { useQuery } from "@tanstack/react-query"
 import { getMonthCanceledOrdersAmount } from "../../../api/getMonthCanceledOrdersAmount"
-import MetricCardSkeleton from "./metricCardSkeleton"
+import MetricCardSkeleton from "../dashboard/MetricCardSkeleton"
 const MonthCanceledOrdersAmount = () => {
 
   const {data: MonthCanceledOrdersAmount} = useQuery({

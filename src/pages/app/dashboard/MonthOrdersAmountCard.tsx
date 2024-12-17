@@ -2,7 +2,7 @@ import { Utensils } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card"
 import { useQuery } from "@tanstack/react-query"
 import { getMonthOrdersAmount } from "../../../api/getMonthOrdersAmount"
-import MetricCardSkeleton from "./metricCardSkeleton"
+import MetricCardSkeleton from '../dashboard/MetricCardSkeleton'
 const MonthOrdersAmountCard = () => {
 
   const {data: MonthOrdersAmount} = useQuery({
