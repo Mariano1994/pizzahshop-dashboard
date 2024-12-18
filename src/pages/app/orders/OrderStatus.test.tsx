@@ -39,7 +39,7 @@ describe('Order Status', () => {
   
     expect(statusText).toBeInTheDocument()
     expect(badgeElement).toHaveClass('bg-amber-500')
-    // wraper.debug()
+    
   })
 
   it('Should display the "Entregue" text in status and should have the of bg-emerald-500', ()=> {
@@ -51,7 +51,7 @@ describe('Order Status', () => {
   
     expect(statusText).toBeInTheDocument()
     expect(badgeElement).toHaveClass('bg-emerald-500')
-    // wraper.debug()
+    
   })
 
   it('Should display the "Cancelado" text in status and should have the of bg-rose-500', ()=> {
@@ -63,7 +63,7 @@ describe('Order Status', () => {
   
     expect(statusText).toBeInTheDocument()
     expect(badgeElement).toHaveClass('bg-rose-500')
-    // wraper.debug()
+
   })
 
 })
