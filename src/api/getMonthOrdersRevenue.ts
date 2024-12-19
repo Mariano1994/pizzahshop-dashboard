@@ -1,6 +1,6 @@
 import { api } from "../lib/axios"
 
-interface GetMonthOrdersRevenueResponse {
+export interface GetMonthOrdersRevenueResponse {
   receipt: number
   diffFromLastMonth: number
 }
