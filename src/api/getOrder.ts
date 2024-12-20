@@ -9,11 +9,11 @@ export interface GetOrdersParams {
 
 export interface GetOrdersResponse {
   orders: {
-    orderId: string;
-    createdAt: Date,
-    status: "pending" | "canceled" | "processing" | "delivering" | "delivered";
-    customerName: string;
-    total: number;
+    orderId: string | undefined;
+    createdAt: Date | undefined,
+    status: "pending" | "canceled" | "processing" | "delivering" | "delivered"; 
+    customerName: string | undefined;
+    total: number | undefined;
 }[];
 meta: {
     pageIndex: number;
