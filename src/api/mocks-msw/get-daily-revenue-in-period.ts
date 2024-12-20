@@ -1,5 +1,5 @@
 import {http, HttpResponse} from 'msw'
-import { GetDailyRevenueInPeriodQuery, GetDailyRevenueInPeriodResponse } from '../getDailyRevenueInPeriod'
+import {GetDailyRevenueInPeriodResponse } from '../getDailyRevenueInPeriod'
 
 
 
