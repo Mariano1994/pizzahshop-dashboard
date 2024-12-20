@@ -11,6 +11,8 @@ import { getMonthOrdersAmountMock } from './get-month-orders-amount-mock'
 import { GetUserProfileMock } from './get-user-profile-mock'
 import { GetManagedRestaurantMock } from './get-managed-restaurant-mock'
 import { getOrdersMock } from './get-orders-mock'
+import { GetOrderDetailsMock } from './get-order-details-mock'
+
 
 
 export const worker = setupWorker(
@@ -25,6 +27,8 @@ export const worker = setupWorker(
   GetUserProfileMock,
   GetManagedRestaurantMock,
   getOrdersMock,
+  GetOrderDetailsMock,
+
   
 )
 

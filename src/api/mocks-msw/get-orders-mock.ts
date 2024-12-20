@@ -8,11 +8,11 @@ type Orders = GetOrdersResponse['orders']
 type OrderStatus = GetOrdersResponse['orders'][number]['status']
 
 const statuses: OrderStatus[] = [
-  'canceled',
+  'pending',
   'delivered',
   'delivering',
-  'pending',
-  'processing'
+  'processing',
+  'canceled',
 ]
 
 const orders: Orders = Array.from({length: 100}).map((_, index) =>{
