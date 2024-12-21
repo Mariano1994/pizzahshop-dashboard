@@ -21,7 +21,6 @@ test('sign-up successfuly', async({page})=> {
 test('sign-up with error', async({page})=> {
   await page.goto('/sign-up', {waitUntil: "networkidle"})
 
-
   await page.getByLabel('Informa o nome do seu estabelecimento').fill('Foguinho')
   await page.getByLabel('Informa o seu nome').fill('Mariano Capiliku')
   await page.getByLabel('Informa o seu e-mail').fill('marianocapiliku@gmail.com')
