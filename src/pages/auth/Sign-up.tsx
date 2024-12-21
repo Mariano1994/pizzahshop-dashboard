@@ -44,7 +44,7 @@ async function handleSigUp (data: SignInForm) {
       }
     })
   } catch (error) {
-    toast.error('Erro ao cadastrar restaurant')
+    toast.error('Erro ao cadastrar restaurante')
   }
  
 }
@@ -71,7 +71,7 @@ return (
 
   <div className="space-y-2">
     <Label htmlFor="managerName">Informa o seu nome</Label>
-    <Input id="manegerName" type="text" {...register('managerName')} required/>
+    <Input id="managerName" type="text" {...register('managerName')} required/>
   </div>
 
   <div className="space-y-2">
