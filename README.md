@@ -10,6 +10,9 @@ Pizzahshop Dashboard is a modern, efficient, and feature-rich web application de
 - **User Authentication**: Secure user registration and login for personalized experiences.
 - **Data Visualization**: Generate insightful charts and graphs using Recharts to track key metrics.
 - **Notifications**: Real-time toasts for user feedback with Sonner.
+- **Testing**: 
+  - Unit tests implemented with Vitest to ensure reliable functionality.
+  - End-to-end (E2E) tests with Playwright for robust application behavior validation.
 
 ## Tech Stack
 ### Frontend
@@ -26,6 +29,8 @@ Pizzahshop Dashboard is a modern, efficient, and feature-rich web application de
 - **Recharts**: Visualization library for creating dynamic charts.
 - **Axios**: Handles API requests and responses.
 - **React Router Dom**: Navigation and routing.
+- **Vitest**: A fast and lightweight testing framework for writing unit tests.
+- **Playwright**: A powerful framework for writing reliable E2E tests.
 
 ## Installation
 
