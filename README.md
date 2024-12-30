@@ -1,7 +1,7 @@
 # Pizzahshop Dashboard
 
 ## Overview
-Pizzahshop Dashboard is a modern, efficient, and feature-rich web application designed to streamline operations for a pizza delivery business. Built using the latest web technologies, it offers a comprehensive solution for managing orders, inventory, and delivery processes.
+Pizzahshop Dashboard is a modern, efficient, and feature-rich web application designed to streamline operations for a pizza delivery business. Built using ReactJs, TypeScript, Tailwind and a lot more, it offers a comprehensive solution for managing orders.
 
 ## Features
 - **Order Management**: Handle incoming orders, track statuses, and ensure timely delivery.
