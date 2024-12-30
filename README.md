@@ -1,50 +1,53 @@
-# React + TypeScript + Vite
+# Pizzahshop Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+Pizzahshop Dashboard is a modern, efficient, and feature-rich web application designed to streamline operations for a pizza delivery business. Built using the latest web technologies, it offers a comprehensive solution for managing orders, inventory, and delivery processes.
 
-Currently, two official plugins are available:
+## Features
+- **Order Management**: Handle incoming orders, track statuses, and ensure timely delivery.
+- **Inventory Control**: Manage stock levels to prevent shortages or overstocking.
+- **Delivery Tracking**: Monitor real-time delivery statuses to enhance customer satisfaction.
+- **User Authentication**: Secure user registration and login for personalized experiences.
+- **Admin Dashboard**: Comprehensive tools for adding products, monitoring performance, and managing the business efficiently.
+- **Data Visualization**: Generate insightful charts and graphs using Recharts to track key metrics.
+- **Notifications**: Real-time toasts for user feedback with Sonner.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+### Frontend
+- **React**: For building the user interface.
+- **TypeScript**: Ensures type safety and maintainable code.
+- **Vite**: A fast build tool for development and production.
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development.
+- **ShadCN UI**: Pre-built and customizable components integrated with Tailwind CSS.
 
-## Expanding the ESLint configuration
+### Libraries and Tools
+- **React Hook Form**: For efficient form handling and validation.
+- **Zod**: Schema-based validation for data integrity.
+- **@tanstack/react-query**: Server-state management for data fetching and caching.
+- **Radix UI**: Accessible, unstyled components for a consistent design system.
+- **Recharts**: Visualization library for creating dynamic charts.
+- **LocalForage**: Enables offline data storage.
+- **Axios**: Handles API requests and responses.
+- **React Router Dom**: Navigation and routing.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Installation
 
-- Configure the top-level `parserOptions` property like this:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Mariano1994/pizzahshop-dashboard.git
+   cd pizzahshop-dashboard
+   ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+4. Open your browser and navigate to `http://localhost:3000`.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+
